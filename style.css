@@ -44,3 +44,16 @@ h1 {
 #results{
     /* margin-right: 5px; */
 }
+
+#city {
+    font-weight: 600;
+    color: #3a737a;
+}
+
+#date {
+    
+}
+
+#historyList {
+    color: lightgray; 
+}

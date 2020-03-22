@@ -42,8 +42,10 @@
                 <input id= "citySearch" class="input is-rounded" type="text" placeholder="Search for a City">
                 <button id= "search" class= "button">SEARCH!</button>
 
-                <div class= "tile">
+                <hr class="navbar-divider">
+                <div id = "history" class= "">
                     HISTORY
+                    <ul id= "historyList"></ul>
                 </div>
 
               </div>
@@ -57,7 +59,9 @@
                 <p id= "wind">Wind Speed:</p>
                 <p id= "uv">UV Index:</p>
                 
-                <div class= "tile">
+                <hr class="navbar-divider">
+                <div class=>
+
                   <p>FUTURE WEATHER!</p>
                 </div>
                 
@@ -73,9 +77,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
 
-
     
-
+    
+    // variables for html elemnts and a count
     var count = 0;
     var temp = $("#temp");
     var currentCity = $("#city");
@@ -83,7 +87,11 @@
     var humidity = $("#humidity");
     var wind = $("#wind");
     var uv = $("#uv");
-      
+    var history = $("#history");
+    var listItem = $("<li>");
+    var searcHistory = []
+
+    // functino to reset displayed info on next search 
     function refresh(){
       temp.text("Temperature:");
       currentCity.text("");
@@ -92,23 +100,29 @@
       wind.text("Wind Speed:");
       uv.text("UV Index:");
       $("#citySearch").val("");
-
+      count++;
     }
+
+    // enter key listener for input field 
     $("#citySearch").keyup(function(event) {
       if (event.keyCode === 13) {
           $("#search").click();
      }
         });
 
-
+    // click listener for submit button
     $("#search").on("click", function() {
         event.preventDefault();
-
-        
-
+ 
         var city = $("#citySearch").val().trim();
+        searcHistory.push(city);
+        console.log(searcHistory);
+
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=c06dd753338f985506028185988ab335";
-    
+
+            // Create local storage based on count and city
+            localStorage.setItem(count, city);
+            
             $.ajax({
                     url: queryURL,
                     method: "GET"
@@ -119,114 +133,75 @@
                   var weather = response.main
                   console.log(response);
 
+                  // var to apply kelvin to farenheight conversaion
                   var currentTemp = ((weather.temp-273.15)*1.8+32);
                   currentTemp = currentTemp.toFixed(1);
                   temp.append(" " + currentTemp + "F");
                   
-
+                  // if and else if statements to set weather emoji
                   if (response.weather[0].main === "Clouds"){
                     weatherEmoji = "&#x2601;";
                   }
-
                   else if (response.weather[0].main === "Clear"){
                     weatherEmoji = "&#x2600;";
                   }
-
                   else if (response.weather[0].main === "Rain"){
                     weatherEmoji = "&#x2602;";
                   }
-
                   else if (response.weather[0].main === "Snow"){
                     weatherEmoji = "&#x2603;";
                   }
 
+                  // for (i = 0; i < searcHistory.length; i++){
+                  $("#historyList").append("<li>" + localStorage.getItem(count-1));
+            // }
+
+                  // appending info to html
                   currentCity.append(" " + response.name + " " + weatherEmoji);
-
                   date.append(moment().format('MMMM Do YYYY, h:mm a'));
-
                   humidity.append(" " + weather.humidity + "%");
-
                   wind.append(" " + response.wind.speed + "MPH")
-
+                 
+                  // defining lat & lon from first API call
                   lon = response.coord.lon;
                   lat = response.coord.lat;
+              
+                  // API call to get UV Index
+                  var uvURL = "https:/api.openweathermap.org/data/2.5/uvi?" + "lat=" + lat + "&lon=" + lon + "&appid=c06dd753338f985506028185988ab335";
 
-                  console.log(response.weather[0].main);
+                  $.ajax({
+                          url: uvURL,
+                          method: "GET"
+                  })
+
+                        .then(function(response) {             
+              
+                        uv.append(" " + response.value);
+                        // if and else if statements to set UV code
+                        if (response.value < 3){
+                          uv.attr("class", "green")
+                        }
+                        else if (response.value < 5){
+                          uv.attr("class", "yellow")
+                        }
+                        else if (response.value < 8){
+                          uv.attr("class", "orange")
+                        }
+                        else if (response.value < 11){
+                          uv.attr("class", "red")
+                        }
+                        else if (response.value > 11){
+                          uv.attr("class", "maroon")
+                        }
+                        });
+                      });
+
+                    refresh();
+
                   
-                  
-                 
-                  
-                  var queryURL = "https:/api.openweathermap.org/data/2.5/uvi?" + "lat=" + lat + "&lon=" + lon + "&appid=c06dd753338f985506028185988ab335";
-
-              $.ajax({
-                      url: queryURL,
-                      method: "GET"
-              })
-
-                    .then(function(response) {             
-          
-                    uv.append(" " + response.value);
-                    
-                    if (response.value < 3){
-                      uv.attr("class", "green")
-                    }
-
-                    else if (response.value < 5){
-                      uv.attr("class", "yellow")
-                    }
-
-                    else if (response.value < 8){
-                      uv.attr("class", "orange")
-                    }
-
-                    else if (response.value < 11){
-                      uv.attr("class", "red")
-                    }
-
-                    else if (response.value > 11){
-                      uv.attr("class", "maroon")
-                    }
-
-                    });
-                  });
-
-                  refresh()
                   
         });
-
-            
-        // function fiveDay() {
     
-        //   var city = $("#citySearch").val().trim();
-        //   var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + "lat=" + lat + "lon=" + lon + "&appid=c06dd753338f985506028185988ab335";
-
-        //       $.ajax({
-        //               url: queryURL,
-        //               method: "GET"
-        //       })
-
-        //             .then(function(response) {             
-          
-        //             var fiveDay = response
-        //             console.log(response);
-
-
-        //             });
-
-                    
-        //   };
-
-      
-
-            
-          
-    // (K-273.15)*1.8)+32
-              
-            
-
-     
-              
-          
     </script>
 
   </body>
