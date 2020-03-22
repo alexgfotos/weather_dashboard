@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temptermater</title>
+
+    <link rel= "stylesheet" href= "https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css">
+    <link rel= "stylesheet" href= "style.css" > 
+</head>
+
+<body>
+    
+    <nav class="navbar container" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <h1>WEATHER IS HAPPENING:</h1>
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+      
+    </nav>
+
+    <hr class="navbar-divider">
+    
+    <div class= "container is-fluid">
+        
+          <div class="tile is-ancestor">
+            <div class="tile is-vertical is-2"></div>
+            <div class="tile is-vertical is-4 box">
+                <p>SEARCH</p>
+                <input id= "citySearch" class="input is-rounded" type="text" placeholder="Search for a City">
+                <button id= "search" class= "button">SEARCH!</button>
+
+                <div class= "tile">
+                    HISTORY
+                </div>
+
+              </div>
+              <div class="tile is-vertical is-4 box">
+                
+                
+                <h2 id= "city"></h2>
+                <p id= "date"></p>
+                <p id= "temp">Temperature:</p>
+                <p id= "humidity">Humidity:</p>
+                <p id= "wind">Wind Speed:</p>
+                <p id= "uv">UV Index:</p>
+                
+                <div class= "tile">
+                  <p>FUTURE WEATHER!</p>
+                </div>
+              </div>
+
+
+          </div>
+        
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript">
+
+
+    
+
+    var count = 0;
+    var temp = $("#temp");
+    var currentCity = $("#city");
+    var date = $("#date");
+    var humidity = $("#humidity");
+    var wind = $("#wind");
+    var uv = $("#uv");
+    
+
+    $("#search").on("click", function() {
+    
+        var city = $("#citySearch").val().trim();
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=c06dd753338f985506028185988ab335";
+
+            $.ajax({
+                    url: queryURL,
+                    method: "GET"
+            })
+
+                  .then(function(response) {             
+        
+                  var weather = response.main
+                  console.log(response);
+
+                  var currentTemp = ((weather.temp-273.15)*1.8+32);
+                  currentTemp = currentTemp.toFixed(1);
+                  temp.append(" " + currentTemp + "F");
+
+                  currentCity.append(" " + response.name);
+
+                  date.append(moment().format('MMMM Do YYYY, h:mm a'));
+
+                  humidity.append(" " + weather.humidity + "%");
+
+                  wind.append(" " + response.wind.speed + "MPH")
+
+                  lon = response.coord.lon;
+                  lat = response.coord.lat;
+                  
+                  // fiveDay();
+                  // uvIndex();
+                  
+                  var queryURL = "https:/api.openweathermap.org/data/2.5/uvi?" + "lat=" + lat + "&lon=" + lon + "&appid=c06dd753338f985506028185988ab335";
+
+              $.ajax({
+                      url: queryURL,
+                      method: "GET"
+              })
+
+                    .then(function(response) {             
+          
+                    uv.append(" " + response.value);
+
+
+                    });
+                  });
+
+                  
+        });
+
+            
+        // function fiveDay() {
+    
+        //   var city = $("#citySearch").val().trim();
+        //   var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + "lat=" + lat + "lon=" + lon + "&appid=c06dd753338f985506028185988ab335";
+
+        //       $.ajax({
+        //               url: queryURL,
+        //               method: "GET"
+        //       })
+
+        //             .then(function(response) {             
+          
+        //             var fiveDay = response
+        //             console.log(response);
+
+
+        //             });
+
+                    
+        //   };
+
+      
+
+            
+          
+    // (K-273.15)*1.8)+32
+              
+            
+
+     
+              
+          
+    </script>
+
+  </body>
+</html>
