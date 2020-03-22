@@ -63,6 +63,9 @@
                 <div class=>
 
                   <p>FUTURE WEATHER!</p>
+                  <div id= "day1"></div>
+                  <div id= "day2"></div>
+                  <div id= "day3"></div>
                 </div>
                 
               </div>
@@ -194,6 +197,40 @@
                           uv.attr("class", "maroon")
                         }
                         });
+
+
+                        var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city + "&appid=c06dd753338f985506028185988ab335";
+
+                        $.ajax({
+                                url: fiveDayURL,
+                                method: "GET"
+                        })
+
+                              .then(function(response) {    
+                                
+                                
+                                var max1 = response.list[0].main.temp_max;
+                                max1 = ((max1-273.15)*1.8+32)
+                                var max2 = ((response.list[7].main.temp_max-273.15)*1.8+32);
+                                var max3 = ((response.list[15].main.temp_max-273.15)*1.8+32);
+                                console.log(response.list[23].main.temp_max);
+                                console.log(response.list[31].main.temp_max);
+
+                                var hum1 = response.list[0].main.humidity;
+                                var hum2 = response.list[7].main.humidity;
+                                var hum3 = response.list[15].main.humidity;
+                                console.log(response.list[23].main.humidity);
+                                console.log(response.list[31].main.humidity);
+                                
+                                $("#day1").text("24HRS  " + "max:" + max1.toFixed(1) +  "F" + "  " + "H: " + hum1 + "%");
+                                $("#day2").text("48HRS  " + "max:" + max2.toFixed(1) +  "F" + "  " + "H: " + hum2 + "%");
+                                $("#day3").text("72HRS  " + "max:" + max3.toFixed(1) +  "F" + "  " + "H: " + hum3 + "%");
+                                
+                              
+                              });
+
+
+                        
                       });
 
                     refresh();
