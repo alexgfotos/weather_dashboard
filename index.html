@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temptermater</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Lobster|Righteous&display=swap" rel="stylesheet">
     <link rel= "stylesheet" href= "https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css">
     <link rel= "stylesheet" href= "style.css" > 
+    
 </head>
 
 <body>
     
     <nav class="navbar container" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
-            <h1>WEATHER IS HAPPENING:</h1>
+          <a class="navbar-item " href="https://bulma.io">
+            <h1 id= "header" class= "is-size-1">WHAT IS THE WEATHER?</h1>
           </a>
       
           <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -29,11 +31,13 @@
 
     <hr class="navbar-divider">
     
-    <div class= "container is-fluid">
+    <div id= "app" class= "container is-fluid">
         
           <div class="tile is-ancestor">
-            <div class="tile is-vertical is-2"></div>
             <div class="tile is-vertical is-4 box">
+              <img src="./Assets/mina.jpg" alt= "Mina the weathet dog enjoying a flowerbed">
+            </div>
+            <div class="tile is-vertical is-3 box is-size-5">
                 <p>SEARCH</p>
                 <input id= "citySearch" class="input is-rounded" type="text" placeholder="Search for a City">
                 <button id= "search" class= "button">SEARCH!</button>
@@ -43,10 +47,10 @@
                 </div>
 
               </div>
-              <div class="tile is-vertical is-4 box">
+              <div id= "results" class="tile is-vertical is-4 box is-size-5">
                 
                 
-                <h2 id= "city"></h2>
+                <h2 id= "city" class= "is-size-4"></h2>
                 <p id= "date"></p>
                 <p id= "temp">Temperature:</p>
                 <p id= "humidity">Humidity:</p>
@@ -56,9 +60,10 @@
                 <div class= "tile">
                   <p>FUTURE WEATHER!</p>
                 </div>
+                
               </div>
 
-
+              <div class="tile is-vertical"></div> 
           </div>
         
 
@@ -78,28 +83,64 @@
     var humidity = $("#humidity");
     var wind = $("#wind");
     var uv = $("#uv");
-    
+      
+    function refresh(){
+      temp.text("Temperature:");
+      currentCity.text("");
+      date.text("");
+      humidity.text("Humidity:");
+      wind.text("Wind Speed:");
+      uv.text("UV Index:");
+      $("#citySearch").val("");
+
+    }
+    $("#citySearch").keyup(function(event) {
+      if (event.keyCode === 13) {
+          $("#search").click();
+     }
+        });
+
 
     $("#search").on("click", function() {
-    
+        event.preventDefault();
+
+        
+
         var city = $("#citySearch").val().trim();
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=c06dd753338f985506028185988ab335";
-
+    
             $.ajax({
                     url: queryURL,
                     method: "GET"
             })
 
                   .then(function(response) {             
-        
+                  var weatherEmoji = "  ";
                   var weather = response.main
                   console.log(response);
 
                   var currentTemp = ((weather.temp-273.15)*1.8+32);
                   currentTemp = currentTemp.toFixed(1);
                   temp.append(" " + currentTemp + "F");
+                  
 
-                  currentCity.append(" " + response.name);
+                  if (response.weather[0].main === "Clouds"){
+                    weatherEmoji = "&#x2601;";
+                  }
+
+                  else if (response.weather[0].main === "Clear"){
+                    weatherEmoji = "&#x2600;";
+                  }
+
+                  else if (response.weather[0].main === "Rain"){
+                    weatherEmoji = "&#x2602;";
+                  }
+
+                  else if (response.weather[0].main === "Snow"){
+                    weatherEmoji = "&#x2603;";
+                  }
+
+                  currentCity.append(" " + response.name + " " + weatherEmoji);
 
                   date.append(moment().format('MMMM Do YYYY, h:mm a'));
 
@@ -109,9 +150,11 @@
 
                   lon = response.coord.lon;
                   lat = response.coord.lat;
+
+                  console.log(response.weather[0].main);
                   
-                  // fiveDay();
-                  // uvIndex();
+                  
+                 
                   
                   var queryURL = "https:/api.openweathermap.org/data/2.5/uvi?" + "lat=" + lat + "&lon=" + lon + "&appid=c06dd753338f985506028185988ab335";
 
@@ -123,11 +166,31 @@
                     .then(function(response) {             
           
                     uv.append(" " + response.value);
+                    
+                    if (response.value < 3){
+                      uv.attr("class", "green")
+                    }
 
+                    else if (response.value < 5){
+                      uv.attr("class", "yellow")
+                    }
+
+                    else if (response.value < 8){
+                      uv.attr("class", "orange")
+                    }
+
+                    else if (response.value < 11){
+                      uv.attr("class", "red")
+                    }
+
+                    else if (response.value > 11){
+                      uv.attr("class", "maroon")
+                    }
 
                     });
                   });
 
+                  refresh()
                   
         });
 

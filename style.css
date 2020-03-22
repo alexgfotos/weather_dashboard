@@ -1,8 +1,46 @@
 body {
     background-color: pink;
-    
+    font-family: 'Bebas Neue', Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+h1 {
+    font-family: 'Righteous', Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
 }
 
 .tile {
-    padding: 10px
+    padding: 10px;
+    margin: 5px;
+}
+
+.navbar {
+    background-image: url();
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.red {
+    background-color: red;
+}
+
+.maroon {
+    background-color: maroon;
+}
+
+#app{
+    /* margin-top: 10px; */
+}
+
+#results{
+    /* margin-right: 5px; */
 }
