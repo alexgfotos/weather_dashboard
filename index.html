@@ -36,7 +36,7 @@
           <div class="tile is-ancestor">
             <div class="tile is-vertical"></div> 
             <div class="tile is-vertical is-4 box">
-              <img src="./Assets/mina.jpg" alt= "Mina the weathet dog enjoying a flowerbed">
+              <img id= "mina" src="./Assets/mina.jpg" alt= "Mina the weathet dog enjoying a flowerbed">
             </div>
             <div class="tile is-vertical is-3 box is-size-5">
                 <p>SEARCH</p>
@@ -155,6 +155,24 @@
                   else if (response.weather[0].main === "Snow"){
                     weatherEmoji = "&#x2603;";
                   }
+
+                  // if statements for different mina pics
+                  if (currentTemp < 90 && currentTemp > 80){
+                    $("#mina").attr("src", "./Assets/80.jpg")
+                  }
+
+                  else if (currentTemp > 90){
+                    $("#mina").attr("src", "./Assets/90.jpg")
+                  }
+
+                  else if (currentTemp < 80 && currentTemp > 70){
+                    $("#mina").attr("src", "./Assets/70.jpg")
+                  }
+
+                  else if (currentTemp < 70){
+                    $("#mina").attr("src", "./Assets/60.jpg")
+                  }
+
 
                   // for (i = 0; i < searcHistory.length; i++){
                   $("#historyList").append("<li>" + localStorage.getItem(count-1));
