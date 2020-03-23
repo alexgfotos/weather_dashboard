@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temptermater</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel = "stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Lobster|Righteous&display=swap" rel="stylesheet">
     <link rel= "stylesheet" href= "https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css">
     <link rel= "stylesheet" href= "style.css" > 
@@ -162,7 +162,7 @@
 
                   // appending info to html
                   currentCity.append(" " + response.name + " " + weatherEmoji);
-                  date.append(moment().format('MMMM Do YYYY, h:mm a'));
+                  date.append(moment().format('MMMM Do YYYY'));
                   humidity.append(" " + weather.humidity + "%");
                   wind.append(" " + response.wind.speed + "MPH")
                  
