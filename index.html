@@ -190,7 +190,7 @@
                   lat = response.coord.lat;
               
                   // API call to get UV Index
-                  var uvURL = "https:/api.openweathermap.org/data/2.5/uvi?appid=c06dd753338f985506028185988ab335" + "&lat=" + lat + "&lon=" + lon;
+                  var uvURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/uvi?appid=c06dd753338f985506028185988ab335" + "&lat=" + lat + "&lon=" + lon;
 
                   $.ajax({
                           url: uvURL,
