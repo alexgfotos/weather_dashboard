@@ -1,88 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temptermater</title>
-    <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel = "stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Lobster|Righteous&display=swap" rel="stylesheet">
-    <link rel= "stylesheet" href= "https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css">
-    <link rel= "stylesheet" href= "style.css" > 
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temptermater</title>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Lobster|Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css">
+  <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
-    
-    <nav class="navbar container is-dark" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item " href="https://bulma.io">
-            <h1 id= "header" class= "is-size-1">MINA WEATHER</h1>
-          </a>
-      
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      
-      
-    </nav>
 
-    <hr class="navbar-divider">
-    
-    <div id= "app" class= "container is-fluid">
-        
-          <div class="tile is-ancestor">
-            <div class="tile is-vertical"></div> 
-            <div class="tile is-vertical is-4 box">
-              <img id= "mina" src="./Assets/mina.jpg" alt= "Mina the weathet dog enjoying a flowerbed">
-            </div>
-            <div class="tile is-vertical is-3 box is-size-5">
-                <p>SEARCH</p>
-                <input id= "citySearch" class="input is-rounded" type="text" placeholder="Search for a City">
-                <button id= "search" class= "button">SEARCH!</button>
+  <nav class="navbar container is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item " href="https://bulma.io">
+        <h1 id="header" class="is-size-1">MINA WEATHER</h1>
+      </a>
 
-                <hr class="navbar-divider">
-                <div id = "history" class= "">
-                    HISTORY
-                    <ul id= "historyList"></ul>
-                </div>
-
-              </div>
-              <div id= "results" class="tile is-vertical is-4 box is-size-5">
-                
-                
-                <h2 id= "city" class= "is-size-2"></h2>
-                <p id= "date"></p>
-                <p id= "temp">Temperature:</p>
-                <p id= "humidity">Humidity:</p>
-                <p id= "wind">Wind Speed:</p>
-                <p id= "uv">UV Index:</p>
-                
-                <hr class="navbar-divider">
-                <div class=>
-
-                  <p>FUTURE WEATHER!</p>
-                  <div id= "day1"></div>
-                  <div id= "day2"></div>
-                  <div id= "day3"></div>
-                </div>
-                
-              </div>
-
-              <div class="tile is-vertical"></div> 
-          </div>
-        
-
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script type="text/javascript">
 
-    
-    
+  </nav>
+
+  <hr class="navbar-divider">
+
+  <div id="app" class="container is-fluid">
+
+    <div class="tile is-ancestor">
+      <div class="tile is-vertical"></div>
+      <div class="tile is-vertical is-4 box">
+        <img id="mina" src="./Assets/mina.jpg" alt="Mina the weathet dog enjoying a flowerbed">
+      </div>
+      <div class="tile is-vertical is-3 box is-size-5">
+        <p>SEARCH</p>
+        <input id="citySearch" class="input is-rounded" type="text" placeholder="Search for a City">
+        <button id="search" class="button">SEARCH!</button>
+
+        <hr class="navbar-divider">
+        <div id="history" class="">
+          HISTORY
+          <ul id="historyList"></ul>
+        </div>
+
+      </div>
+      <div id="results" class="tile is-vertical is-4 box is-size-5">
+
+
+        <h2 id="city" class="is-size-2"></h2>
+        <p id="date"></p>
+        <p id="temp">Temperature:</p>
+        <p id="humidity">Humidity:</p>
+        <p id="wind">Wind Speed:</p>
+        <p id="uv">UV Index:</p>
+
+        <hr class="navbar-divider">
+        <div class=>
+
+          <p>FUTURE WEATHER!</p>
+          <div id="day1"></div>
+          <div id="day2"></div>
+          <div id="day3"></div>
+        </div>
+
+      </div>
+
+      <div class="tile is-vertical"></div>
+    </div>
+
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript">
+
+
+
     // variables for html elemnts and a count
     var count = 0;
     var temp = $("#temp");
@@ -93,10 +94,15 @@
     var uv = $("#uv");
     var history = $("#history");
     var listItem = $("<li>");
-    var searcHistory = []
+    const searcHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 
-    // functino to reset displayed info on next search 
-    function refresh(){
+    searcHistory.forEach(search => {
+    $("#historyList").append("<li>", search)
+    }
+    )
+    
+    // function to reset displayed info on next search 
+    function refresh() {
       temp.text("Temperature:");
       currentCity.text("");
       date.text("");
@@ -109,157 +115,159 @@
     }
 
     // enter key listener for input field 
-    $("#citySearch").keyup(function(event) {
+    $("#citySearch").keyup(function (event) {
       if (event.keyCode === 13) {
-          $("#search").click();
-     }
-        });
+        $("#search").click();
+      }
+    });
 
     // click listener for submit button
-    $("#search").on("click", function() {
-        event.preventDefault();
- 
-        var city = $("#citySearch").val().trim();
-        searcHistory.push(city);
-        console.log(searcHistory);
+    $("#search").on("click", function () {
+      event.preventDefault();
 
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=c06dd753338f985506028185988ab335";
+      var city = $("#citySearch").val().trim();
+      searcHistory.push(city);
+      console.log(searcHistory);
+      $("#historyList").append("<li>", city)
 
-            // Create local storage based on count and city
-            localStorage.setItem(count, city);
-            
-            $.ajax({
-                    url: queryURL,
-                    method: "GET"
-            })
+      var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=c06dd753338f985506028185988ab335";
 
-                  .then(function(response) {             
-                  var weatherEmoji = "  ";
-                  var weather = response.main
-                  console.log(response);
+      // Create local storage based on count and city
+      localStorage.setItem("searchHistory", JSON.stringify(searcHistory));
 
-                  // var to apply kelvin to farenheight conversaion
-                  var currentTemp = ((weather.temp-273.15)*1.8+32);
-                  currentTemp = currentTemp.toFixed(1);
-                  temp.append(" " + currentTemp + "F");
-                  
-                  // if and else if statements to set weather emoji
-                  if (response.weather[0].main === "Clouds"){
-                    weatherEmoji = "&#x2601;";
-                  }
-                  else if (response.weather[0].main === "Clear"){
-                    weatherEmoji = "&#x2600;";
-                  }
-                  else if (response.weather[0].main === "Rain"){
-                    weatherEmoji = "&#x2602;";
-                  }
-                  else if (response.weather[0].main === "Snow"){
-                    weatherEmoji = "&#x2603;";
-                  }
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
 
-                  // if statements for different mina pics
-                  if (currentTemp < 90 && currentTemp > 80){
-                    $("#mina").attr("src", "./Assets/80.jpg")
-                  }
+        .then(function (response) {
+          var weatherEmoji = "  ";
+          var weather = response.main
+          console.log(response);
 
-                  else if (currentTemp > 90){
-                    $("#mina").attr("src", "./Assets/90.jpg")
-                  }
+          // var to apply kelvin to farenheight conversaion
+          var currentTemp = ((weather.temp - 273.15) * 1.8 + 32);
+          currentTemp = currentTemp.toFixed(1);
+          temp.append(" " + currentTemp + "F");
 
-                  else if (currentTemp < 80 && currentTemp > 70){
-                    $("#mina").attr("src", "./Assets/70.jpg")
-                  }
+          // if and else if statements to set weather emoji
+          if (response.weather[0].main === "Clouds") {
+            weatherEmoji = "&#x2601;";
+          }
+          else if (response.weather[0].main === "Clear") {
+            weatherEmoji = "&#x2600;";
+          }
+          else if (response.weather[0].main === "Rain") {
+            weatherEmoji = "&#x2602;";
+          }
+          else if (response.weather[0].main === "Snow") {
+            weatherEmoji = "&#x2603;";
+          }
 
-                  else if (currentTemp < 70){
-                    $("#mina").attr("src", "./Assets/60.jpg")
-                  }
+          // if statements for different mina pics
+          if (currentTemp < 90 && currentTemp > 80) {
+            $("#mina").attr("src", "./Assets/80.jpg")
+          }
 
+          else if (currentTemp > 90) {
+            $("#mina").attr("src", "./Assets/90.jpg")
+          }
 
-                  // for (i = 0; i < searcHistory.length; i++){
-                  $("#historyList").append("<li>" + localStorage.getItem(count-1));
-            // }
+          else if (currentTemp < 80 && currentTemp > 70) {
+            $("#mina").attr("src", "./Assets/70.jpg")
+          }
 
-                  // appending info to html
-                  currentCity.append(" " + response.name + " " + weatherEmoji);
-                  date.append(moment().format('MMMM Do YYYY'));
-                  humidity.append(" " + weather.humidity + "%");
-                  wind.append(" " + response.wind.speed + "MPH")
-                 
-                  // defining lat & lon from first API call
-                  lon = response.coord.lon;
-                  lat = response.coord.lat;
-              
-                  // API call to get UV Index
-                  var uvURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/uvi?appid=c06dd753338f985506028185988ab335" + "&lat=" + lat + "&lon=" + lon;
-
-                  $.ajax({
-                          url: uvURL,
-                          method: "GET"
-                  })
-
-                        .then(function(response) {             
-              
-                        uv.append(" " + response.value);
-                        // if and else if statements to set UV code
-                        if (response.value < 3){
-                          uv.attr("class", "green")
-                        }
-                        else if (response.value < 5){
-                          uv.attr("class", "yellow")
-                        }
-                        else if (response.value < 8){
-                          uv.attr("class", "orange")
-                        }
-                        else if (response.value < 11){
-                          uv.attr("class", "red")
-                        }
-                        else if (response.value > 11){
-                          uv.attr("class", "maroon")
-                        }
-                        });
-
-                        // api call for future weather
-                        var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city + "&appid=c06dd753338f985506028185988ab335";
-
-                        $.ajax({
-                                url: fiveDayURL,
-                                method: "GET"
-                        })
-
-                              .then(function(response) {    
-                                
-                                
-                                var max1 = response.list[0].main.temp_max;
-                                max1 = ((max1-273.15)*1.8+32)
-                                var max2 = ((response.list[7].main.temp_max-273.15)*1.8+32);
-                                var max3 = ((response.list[15].main.temp_max-273.15)*1.8+32);
-                                console.log(response.list[23].main.temp_max);
-                                console.log(response.list[31].main.temp_max);
-
-                                var hum1 = response.list[0].main.humidity;
-                                var hum2 = response.list[7].main.humidity;
-                                var hum3 = response.list[15].main.humidity;
-                                console.log(response.list[23].main.humidity);
-                                console.log(response.list[31].main.humidity);
-                                
-                                $("#day1").text("24HRS  " + "max:" + max1.toFixed(1) +  "F" + "  " + "H: " + hum1 + "%");
-                                $("#day2").text("48HRS  " + "max:" + max2.toFixed(1) +  "F" + "  " + "H: " + hum2 + "%");
-                                $("#day3").text("72HRS  " + "max:" + max3.toFixed(1) +  "F" + "  " + "H: " + hum3 + "%");
-                                
-                              
-                              });
+          else if (currentTemp < 70) {
+            $("#mina").attr("src", "./Assets/60.jpg")
+          }
 
 
-                        
-                      });
+          // for (i = 0; i < searcHistory.length; i++){
+          // $("#historyList").append("<li>" + localStorage.getItem(count - 1));
+          // }
 
-                    refresh();
+          // appending info to html
+          currentCity.append(" " + response.name + " " + weatherEmoji);
+          date.append(moment().format('MMMM Do YYYY'));
+          humidity.append(" " + weather.humidity + "%");
+          wind.append(" " + response.wind.speed + "MPH")
 
-                  
-                  
+          // defining lat & lon from first API call
+          lon = response.coord.lon;
+          lat = response.coord.lat;
+
+          // API call to get UV Index
+          var uvURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/uvi?appid=c06dd753338f985506028185988ab335" + "&lat=" + lat + "&lon=" + lon;
+
+          $.ajax({
+            url: uvURL,
+            method: "GET"
+          })
+
+            .then(function (response) {
+
+              uv.append(" " + response.value);
+              // if and else if statements to set UV code
+              if (response.value < 3) {
+                uv.attr("class", "green")
+              }
+              else if (response.value < 5) {
+                uv.attr("class", "yellow")
+              }
+              else if (response.value < 8) {
+                uv.attr("class", "orange")
+              }
+              else if (response.value < 11) {
+                uv.attr("class", "red")
+              }
+              else if (response.value > 11) {
+                uv.attr("class", "maroon")
+              }
+            });
+
+          // api call for future weather
+          var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast/?q=" + city + "&appid=c06dd753338f985506028185988ab335";
+
+          $.ajax({
+            url: fiveDayURL,
+            method: "GET"
+          })
+
+            .then(function (response) {
+
+
+              var max1 = response.list[0].main.temp_max;
+              max1 = ((max1 - 273.15) * 1.8 + 32)
+              var max2 = ((response.list[7].main.temp_max - 273.15) * 1.8 + 32);
+              var max3 = ((response.list[15].main.temp_max - 273.15) * 1.8 + 32);
+              console.log(response.list[23].main.temp_max);
+              console.log(response.list[31].main.temp_max);
+
+              var hum1 = response.list[0].main.humidity;
+              var hum2 = response.list[7].main.humidity;
+              var hum3 = response.list[15].main.humidity;
+              console.log(response.list[23].main.humidity);
+              console.log(response.list[31].main.humidity);
+
+              $("#day1").text("24HRS  " + "max:" + max1.toFixed(1) + "F" + "  " + "H: " + hum1 + "%");
+              $("#day2").text("48HRS  " + "max:" + max2.toFixed(1) + "F" + "  " + "H: " + hum2 + "%");
+              $("#day3").text("72HRS  " + "max:" + max3.toFixed(1) + "F" + "  " + "H: " + hum3 + "%");
+
+
+            });
+
+
+
         });
-    
-    </script>
 
-  </body>
+      refresh();
+
+
+
+    });
+
+  </script>
+
+</body>
+
 </html>
