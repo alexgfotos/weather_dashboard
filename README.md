@@ -1,6 +1,6 @@
 # weather_dashboard
 
-For this home work we were supposed to create an app that :
+For this project we were supposed to create an app that :
 
     1. Allows users to search for current weather using the provided API
     2. Displays current temperature, wind, humidity, and uv index
